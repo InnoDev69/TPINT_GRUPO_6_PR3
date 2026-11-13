@@ -1,0 +1,29 @@
+# --- Visual Studio ---
+.vs/
+*.user
+*.suo
+*.userprefs
+*.DotSettings.user
+_ReSharper*/
+
+# --- Compilación ---
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+
+# --- NuGet (se restaura solo con packages.config) ---
+packages/
+
+# --- Otros editores / sistema ---
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+*.log
+
+# --- Word: archivos temporales de bloqueo ---
+~$*.doc*
+
+# --- Zips y copias de entrega (el historial lo lleva git) ---
+*.zip

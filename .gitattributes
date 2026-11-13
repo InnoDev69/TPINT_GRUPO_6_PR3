@@ -1,0 +1,8 @@
+# Normaliza finales de línea entre Windows y Linux
+* text=auto
+
+# Archivos binarios: git no intenta diferenciarlos ni convertirlos
+*.docx binary
+*.pdf  binary
+*.png  binary
+*.jpg  binary
