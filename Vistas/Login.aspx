@@ -64,7 +64,6 @@
                 <p class="ayuda" style="text-align: center; margin: 14px 0 26px;">¿Olvidó su contraseña? Contacte al administrador.</p>
 
                 <asp:Panel ID="pnlError" runat="server" Visible="false" CssClass="aviso aviso-error" role="alert">
-                    <span aria-hidden="true">⚠</span>
                     <div>
                         <b>Usuario o contraseña incorrectos.</b><br />
                         Verifique los datos ingresados e intente nuevamente.
