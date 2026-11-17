@@ -1,4 +1,4 @@
-<%@ Page Title="Alta de médico - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Title="Alta de médico - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Contenido" runat="server">
 

@@ -1,4 +1,4 @@
-<%@ Page Title="Panel de administración - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Title="Panel de administración - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Contenido" runat="server">
 

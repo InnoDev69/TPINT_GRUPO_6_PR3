@@ -1,4 +1,4 @@
-<%@ Page Title="Gestión de pacientes - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Title="Gestión de pacientes - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Contenido" runat="server">
 

@@ -28,6 +28,19 @@ Sistema de gestión de una clínica médica en ASP.NET Web Forms (.NET Framework
 4. Establecer `Vistas` como proyecto de inicio y `Login.aspx` como página de inicio.
 5. F5.
 
+### Solución de problemas
+
+**"A project with an Output Type of Class Library cannot be started directly"**
+No es un error de compilación: aparece al presionar F5 cuando el proyecto de inicio es una biblioteca
+(`Datos`, `Entidades` o `Negocio`). En el Explorador de soluciones, clic derecho en `Vistas` →
+*Establecer como proyecto de inicio*, y volver a presionar F5. Si el error persiste con `Vistas`
+seleccionado, falta la carga de trabajo *Desarrollo de ASP.NET y web* de Visual Studio.
+
+**Acentos rotos ("ClÃnica", "MÃ©dicos")**
+Los archivos web están guardados como UTF-8 con BOM y `Web.config` fuerza
+`fileEncoding`/`responseEncoding` en UTF-8. Si se agrega un archivo nuevo, guardarlo como
+*UTF-8 con firma* desde Visual Studio.
+
 ## Estado
 
 - [x] Estructura de 4 proyectos

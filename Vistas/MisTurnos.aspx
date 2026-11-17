@@ -1,4 +1,4 @@
-<%@ Page Title="Mis turnos - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Title="Mis turnos - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Contenido" runat="server">
 
