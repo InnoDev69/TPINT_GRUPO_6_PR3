@@ -621,19 +621,19 @@ Antes de considerar terminada una pantalla, verificar:
 
 | Grupo | Clases |
 |---|---|
-| Layout | `.encabezado`, `.marca`, `.cruz`, `.separador`, `.usuario-chip`, `.avatar`, `.datos`, `.btn-salir`, `.cuerpo`, `.menu`, `.titulo`, `.ico`, `.contenido` |
+| Layout | `.encabezado`, `.marca`, `.cruz`, `.separador`, `.usuario-chip`, `.avatar`, `.datos`, `.btn-salir`, `.cuerpo`, `.menu`, `.titulo`, `.ico`, `.contenido`, `.turno-grid` |
 | Página | `.migas`, `.titulo-pagina` |
 | Tarjetas | `.tarjeta`, `.tarjeta-cab`, `.tarjeta-cuerpo`, `.nota` |
-| KPI | `.kpis`, `.kpi`, `.etiqueta`, `.valor`, `.detalle`, `.teal`, `.verde`, `.ambar` |
-| Formularios | `.fila`, `.campo`, `.campo.angosto`, `.campo.medio`, `.etiqueta-campo`, `.req`, `.ayuda`, `.error-campo`, `.campo-check` |
-| Botones | `.botones`, `.derecha`, `.btn`, `.btn-primario`, `.btn-azul`, `.btn-secundario`, `.btn-peligro`, `.btn-mini`, `.btn-link`, `.peligro` |
-| Filtros | `.filtros` |
-| Grillas | `.tabla-scroll`, `table.grid`, `.principal`, `.acciones`, `tr.pager` |
+| KPI | `.kpis`, `.kpi`, `.etiqueta`, `.valor`, `.detalle`, `.teal`, `.verde`, `.ambar`, `.rojo` |
+| Formularios | `.fila`, `.campo`, `.campo.angosto`, `.campo.medio`, `.etiqueta-campo`, `.req`, `.ayuda`, `.error-campo`, `.campo-check`, `.dias` |
+| Botones | `.botones`, `.derecha`, `.nota`, `.accesos`, `.btn`, `.btn-primario`, `.btn-azul`, `.btn-secundario`, `.btn-peligro`, `.btn-mini`, `.btn-link`, `.peligro` |
+| Filtros | `.filtros`, `.acciones-filtro` |
+| Grillas | `.tabla-scroll`, `table.grid`, `.principal`, `.acciones`, `th.acciones`, `tr.pager` |
 | Paginación | `.paginador`, `.info`, `.paginas`, `.actual`, `.puntos` |
 | Estados | `.badge`, `.badge-presente`, `.badge-ausente`, `.badge-pendiente`, `.badge-neutro`, `.badge-teal` |
 | Avisos | `.aviso`, `.aviso-ok`, `.aviso-error`, `.aviso-info`, `.aviso-warn` |
 | Modal | `.velo`, `.modal`, `.modal-cab`, `.icono`, `.modal-cuerpo`, `.modal-pie` |
-| Reportes | `.reportes-grid`, `.barra`, `.pres`, `.aus`, `.leyenda`, `.punto`, `.torta`, `.circulo`, `.centro`, `.tabla-resumen`, `.nota-pie` |
+| Reportes | `.reportes-grid`, `.barra`, `.pres`, `.aus`, `.leyenda`, `.punto`, `.torta`, `.circulo`, `.circulo.asistencia`, `.centro`, `.detalle`, `.tabla-resumen`, `.nota-pie` |
 | Login | `.login-body`, `.login-card`, `.login-lado`, `.login-form`, `.subtitulo`, `.pie` |
 
 ## Anexo B. Tokens de referencia rápida
