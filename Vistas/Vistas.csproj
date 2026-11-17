@@ -68,10 +68,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Estilos\estilos.css" />
+    <Content Include="Site.Master" />
     <Content Include="Login.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Pacientes.aspx" />
+    <Content Include="PacienteAlta.aspx" />
+    <Content Include="PacienteModificar.aspx" />
+    <Content Include="Medicos.aspx" />
+    <Content Include="MedicoAlta.aspx" />
+    <Content Include="MedicoModificar.aspx" />
+    <Content Include="Turnos.aspx" />
+    <Content Include="TurnoAsignar.aspx" />
+    <Content Include="Informes.aspx" />
+    <Content Include="MisTurnos.aspx" />
+    <Content Include="MisPacientes.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

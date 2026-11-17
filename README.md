@@ -32,11 +32,29 @@ Sistema de gestión de una clínica médica en ASP.NET Web Forms (.NET Framework
 
 - [x] Estructura de 4 proyectos
 - [x] Pantalla de Login (`Vistas/Login.aspx`); validación contra la base pendiente
-- [ ] ABML de pacientes
-- [ ] ABML de médicos
-- [ ] Asignación de turnos
-- [ ] Informes
-- [ ] Vista del médico (mis turnos)
+- [x] Maqueta navegable de las pantallas internas (`Vistas/Site.Master` + páginas `.aspx`)
+- [ ] ABML de pacientes contra la base
+- [ ] ABML de médicos contra la base
+- [ ] Asignación de turnos contra la base
+- [ ] Informes contra la base
+- [ ] Vista del médico contra la base
+
+### Maqueta navegable
+
+Las pantallas internas muestran datos de ejemplo y la navegación entre ellas está resuelta:
+Panel de administración, Pacientes (listado, alta y modificación), Médicos (listado, alta y modificación),
+Turnos (listado y asignación), Informes, y la vista del médico (Mis turnos y Mis pacientes).
+
+Credenciales de demostración mientras la validación real está pendiente:
+
+| Usuario | Contraseña | Rol |
+|---|---|---|
+| `admin` | `admin123` | Administrador |
+| `lfernandez` | `medico123` | Médico |
+| `mgomez` | `medico123` | Médico (usuario solo de demo, no está en el script) |
+
+> Los datos de las grillas y formularios son estáticos. Las altas, bajas y modificaciones solo
+> muestran los avisos y modales de la maqueta; todavía no persisten en SQL Server.
 
 ## Trabajo en equipo
 
