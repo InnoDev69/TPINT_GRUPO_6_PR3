@@ -33,5 +33,15 @@ namespace Datos
 
             return lista;
         }
+        //obtiene un unico valor de la db
+        public static object Escalar(string sql)
+        {
+            using (SqlConnection conexion = new ConexionBD().ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand(sql, conexion))
+            {
+                conexion.Open();
+                return cmd.ExecuteScalar();
+            }
+        }
     }
 }
