@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Web.UI;
+using Entidades;
+using Negocio;
 
 namespace Vistas
 {
@@ -29,53 +31,22 @@ namespace Vistas
             string usuario = txtUsuario.Text.Trim();
             string contrasenia = txtContrasenia.Text;
 
-            // TODO: reemplazar por la validación real contra SQL Server
-            // (capa de negocio / acceso a datos del proyecto).
-            string nombre;
-            string rol;
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            Usuarios usuarioValidado = negocio.ValidarLogin(usuario, contrasenia);
 
-            if (!ValidarCredenciales(usuario, contrasenia, out nombre, out rol))
+            if (usuarioValidado == null)
             {
                 pnlError.Visible = true;
                 return;
             }
 
-            Session["Usuario"] = usuario;
-            Session["Nombre"] = nombre;
-            Session["Rol"] = rol;
+            Session["Usuario"] = usuarioValidado.NombreUsuario;
+            Session["Nombre"] = usuarioValidado.Persona.Nombre + " " + usuarioValidado.Persona.Apellido;
+            Session["Rol"] = usuarioValidado.Rol;
+            Session["IdPersona"] = usuarioValidado.IdPersona;
 
             Response.Redirect("~/Default.aspx", false);
             Context.ApplicationInstance.CompleteRequest();
-        }
-
-        private bool ValidarCredenciales(string usuario, string contrasenia, out string nombre, out string rol)
-        {
-            // Credenciales de demostración para recorrer la maqueta mientras
-            // la validación real se conecta con la capa de negocio.
-            if (usuario == "admin" && contrasenia == "admin123")
-            {
-                nombre = "Laura Benitez";
-                rol = "Administrador";
-                return true;
-            }
-
-            if (usuario == "mgomez" && contrasenia == "medico123")
-            {
-                nombre = "Martin Gomez";
-                rol = "Medico";
-                return true;
-            }
-
-            if (usuario == "lfernandez" && contrasenia == "medico123")
-            {
-                nombre = "Luis Fernandez";
-                rol = "Medico";
-                return true;
-            }
-
-            nombre = null;
-            rol = null;
-            return false;
         }
     }
 }

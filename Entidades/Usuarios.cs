@@ -15,6 +15,10 @@ namespace Entidades
         public int IdPersona { get; set; }
         public bool EstadoRegistro { get; set; }
 
+        // Esto es la descripcion del rol (Administrador / Medico) obtenida de la tabla Roles,
+        // para no hardcodear el mapeo IdRol -> texto en la capa de Vistas.
+        public string Rol { get; set; }
+
         public Persona Persona { get; set; }
     }
 }

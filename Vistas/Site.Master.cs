@@ -6,9 +6,9 @@ namespace Vistas
 {
     public partial class SiteMaster : MasterPage
     {
-        protected string NombreUsuario = "Laura Benitez";
-        protected string RolUsuario = "Administrador";
-        protected string Iniciales = "LB";
+        protected string NombreUsuario = string.Empty;
+        protected string RolUsuario = string.Empty;
+        protected string Iniciales = "SR";
         protected bool EsMedico;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -18,36 +18,27 @@ namespace Vistas
 
         private void CargarSesion()
         {
-            // Mientras el login no valide contra la base, las páginas se pueden
-            // abrir directamente con un usuario de demostración.
-            if (Session["Nombre"] == null || Session["Rol"] == null)
+            // Verificar si el usuario ha iniciado sesion
+            // Ya no hardcodeamos nada, deberian de tener la bd ya
+            if (Session["Usuario"] != null && Session["Nombre"] != null && Session["Rol"] != null)
             {
-                string actual = Path.GetFileName(Request.AppRelativeCurrentExecutionFilePath);
-
-                if (string.Equals(actual, "MisTurnos.aspx", StringComparison.OrdinalIgnoreCase)
-                    || string.Equals(actual, "MisPacientes.aspx", StringComparison.OrdinalIgnoreCase))
-                {
-                    Session["Usuario"] = "mgomez";
-                    Session["Nombre"] = "Martin Gomez";
-                    Session["Rol"] = "Medico";
-                }
-                else
-                {
-                    Session["Usuario"] = "admin";
-                    Session["Nombre"] = "Laura Benitez";
-                    Session["Rol"] = "Administrador";
-                }
+                NombreUsuario = Convert.ToString(Session["Nombre"]);
+                RolUsuario = Convert.ToString(Session["Rol"]);
+                EsMedico = RolUsuario.StartsWith("Med", StringComparison.OrdinalIgnoreCase)
+                    || RolUsuario.StartsWith("Méd", StringComparison.OrdinalIgnoreCase);
+                Iniciales = ObtenerIniciales(NombreUsuario);
             }
-
-            NombreUsuario = Convert.ToString(Session["Nombre"]);
-            RolUsuario = Convert.ToString(Session["Rol"]);
-            EsMedico = RolUsuario.StartsWith("Med", StringComparison.OrdinalIgnoreCase)
-                || RolUsuario.StartsWith("Méd", StringComparison.OrdinalIgnoreCase);
-            Iniciales = ObtenerIniciales(NombreUsuario);
+            else
+            {
+                // Si no hay usuario en sesion, redirige al login
+                Response.Redirect("~/Login.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+            }
         }
 
         protected string Activo(params string[] paginas)
         {
+            // Esta funcion devuelve "activo" si la pagina actual coincide con alguna de las paginas pasadas como parametro.
             string actual = Path.GetFileName(Request.AppRelativeCurrentExecutionFilePath);
 
             foreach (string pagina in paginas)
@@ -63,6 +54,7 @@ namespace Vistas
 
         private static string ObtenerIniciales(string nombre)
         {
+            // Esta funcion devuelve las iniciales del nombre completo. Si el nombre es nulo o vacio, devuelve "SR".
             if (string.IsNullOrWhiteSpace(nombre))
             {
                 return "SR";
