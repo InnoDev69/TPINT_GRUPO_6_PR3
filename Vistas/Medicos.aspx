@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Gestión de médicos - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Title="Gestión de médicos - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Medicos.aspx.cs" Inherits="Vistas.Medicos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Contenido" runat="server">
 
@@ -10,203 +10,105 @@
             <p>Alta, baja, modificación y listado de profesionales de la clínica.</p>
         </div>
         <div class="botones">
-            <a class="btn btn-primario" href="MedicoAlta.aspx">+ Nuevo médico</a>
+            <asp:HyperLink ID="lnkNuevoMedico" runat="server" CssClass="btn btn-primario" NavigateUrl="MedicoAlta.aspx" Text="+ Nuevo médico" />
         </div>
     </div>
 
-    <% if (Request.QueryString["baja"] == "ok") { %>
-        <div class="aviso aviso-ok" role="status">
-            <span aria-hidden="true">&#10003;</span>
-            <div>El médico se dio de baja correctamente y ya no aparece en el listado.</div>
+    <asp:Panel ID="pnlAvisoOk" runat="server" CssClass="aviso aviso-ok" Visible="false">
+        <span aria-hidden="true">&#10003;</span>
+        <div>
+            <asp:Label ID="lblAviso" runat="server" Text="El médico se dio de baja correctamente y ya no aparece en el listado." />
         </div>
-    <% } %>
+    </asp:Panel>
 
     <div class="tarjeta">
         <div class="tarjeta-cab">
             <h2>Médicos registrados</h2>
-            <span class="nota">15 registros activos</span>
+            <asp:Label ID="lblRegistrosActivos" runat="server" CssClass="nota" />
         </div>
 
         <div class="filtros">
             <div class="fila">
                 <div class="campo">
-                    <label for="buscarMedico">Buscar</label>
-                    <input type="text" id="buscarMedico" placeholder="Legajo, nombre, apellido o DNI..." />
+                    <asp:Label ID="lblBuscar" runat="server" AssociatedControlID="txtBuscar" Text="Buscar" />
+                    <asp:TextBox ID="txtBuscar" runat="server" placeholder="Legajo, nombre, apellido o DNI..." />
                 </div>
                 <div class="campo">
-                    <label for="especialidadMedico">Especialidad</label>
-                    <select id="especialidadMedico">
-                        <option>Clínica Médica</option>
-                        <option>Cardiología</option>
-                        <option>Dermatología</option>
-                        <option>Pediatría</option>
-                        <option>Ginecología</option>
-                        <option>Traumatología</option>
-                        <option>Neurología</option>
-                        <option>Oftalmología</option>
-                    </select>
+                    <asp:Label ID="lblEspecialidad" runat="server" AssociatedControlID="ddlEspecialidad" Text="Especialidad" />
+                    <asp:DropDownList ID="ddlEspecialidad" runat="server" AppendDataBoundItems="true">
+                        <asp:ListItem Text="Todas" Value="" />
+                    </asp:DropDownList>
                 </div>
                 <div class="campo">
-                    <label for="diaMedico">Día de atención</label>
-                    <select id="diaMedico">
-                        <option>Todos</option>
-                        <option>Lunes</option>
-                        <option>Martes</option>
-                        <option>Miércoles</option>
-                        <option>Jueves</option>
-                        <option>Viernes</option>
-                        <option>Sábado</option>
-                    </select>
+                    <asp:Label ID="lblDia" runat="server" AssociatedControlID="ddlDia" Text="Día de atención" />
+                    <asp:DropDownList ID="ddlDia" runat="server" AppendDataBoundItems="true">
+                        <asp:ListItem Text="Todos" Value="" />
+                    </asp:DropDownList>
                 </div>
                 <div class="acciones-filtro">
-                    <a class="btn btn-azul" href="Medicos.aspx">Buscar</a>
-                    <a class="btn btn-secundario" href="Medicos.aspx">Limpiar</a>
+                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-azul" OnClick="btnBuscar_Click" />
+                    <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-secundario" CausesValidation="false" OnClick="btnLimpiar_Click" />
                 </div>
             </div>
         </div>
 
         <div class="tabla-scroll">
-            <table class="grid">
-                <thead>
-                    <tr>
-                        <th>Legajo</th>
-                        <th>Médico</th>
-                        <th>Especialidad</th>
-                        <th>Días de atención</th>
-                        <th>Horario</th>
-                        <th>Localidad</th>
-                        <th class="acciones">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="principal">MP-001</td>
-                        <td>Dr. Martin Gomez</td>
-                        <td><span class="badge badge-teal">Clínica Médica</span></td>
-                        <td>Lun, Mié, Vie</td>
-                        <td>08:00 a 12:00 / 14:00 a 18:00</td>
-                        <td>General Pacheco</td>
-                        <td class="acciones">
-                            <a class="btn-link" href="MedicoModificar.aspx">Editar</a>
-                            <a class="btn-link peligro" href="Medicos.aspx?baja=1">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="principal">MP-002</td>
-                        <td>Dra. Ana Fernandez</td>
-                        <td><span class="badge badge-teal">Cardiología</span></td>
-                        <td>Mar, Jue, Sáb</td>
-                        <td>08:00 a 12:00 / 14:00 a 18:00</td>
-                        <td>San Miguel</td>
-                        <td class="acciones">
-                            <a class="btn-link" href="MedicoModificar.aspx">Editar</a>
-                            <a class="btn-link peligro" href="Medicos.aspx?baja=1">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="principal">MP-003</td>
-                        <td>Dr. Diego Martinez</td>
-                        <td><span class="badge badge-teal">Dermatología</span></td>
-                        <td>Lun, Mié, Vie</td>
-                        <td>08:00 a 12:00 / 14:00 a 18:00</td>
-                        <td>Tigre</td>
-                        <td class="acciones">
-                            <a class="btn-link" href="MedicoModificar.aspx">Editar</a>
-                            <a class="btn-link peligro" href="Medicos.aspx?baja=1">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="principal">MP-004</td>
-                        <td>Dra. Carla Sosa</td>
-                        <td><span class="badge badge-teal">Pediatría</span></td>
-                        <td>Mar, Jue, Sáb</td>
-                        <td>08:00 a 12:00 / 14:00 a 18:00</td>
-                        <td>La Plata</td>
-                        <td class="acciones">
-                            <a class="btn-link" href="MedicoModificar.aspx">Editar</a>
-                            <a class="btn-link peligro" href="Medicos.aspx?baja=1">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="principal">MP-005</td>
-                        <td>Dr. Pablo Romero</td>
-                        <td><span class="badge badge-teal">Ginecología</span></td>
-                        <td>Lun, Mié, Vie</td>
-                        <td>08:00 a 12:00 / 14:00 a 18:00</td>
-                        <td>Rosario</td>
-                        <td class="acciones">
-                            <a class="btn-link" href="MedicoModificar.aspx">Editar</a>
-                            <a class="btn-link peligro" href="Medicos.aspx?baja=1">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="principal">MP-006</td>
-                        <td>Dra. Lucia Lopez</td>
-                        <td><span class="badge badge-teal">Traumatología</span></td>
-                        <td>Mar, Jue, Sáb</td>
-                        <td>08:00 a 12:00 / 14:00 a 18:00</td>
-                        <td>Cordoba Capital</td>
-                        <td class="acciones">
-                            <a class="btn-link" href="MedicoModificar.aspx">Editar</a>
-                            <a class="btn-link peligro" href="Medicos.aspx?baja=1">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="principal">MP-007</td>
-                        <td>Dr. Carlos Diaz</td>
-                        <td><span class="badge badge-teal">Neurología</span></td>
-                        <td>Lun, Mié, Vie</td>
-                        <td>08:00 a 12:00 / 14:00 a 18:00</td>
-                        <td>Mendoza Capital</td>
-                        <td class="acciones">
-                            <a class="btn-link" href="MedicoModificar.aspx">Editar</a>
-                            <a class="btn-link peligro" href="Medicos.aspx?baja=1">Eliminar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="principal">MP-008</td>
-                        <td>Dra. Sofia Perez</td>
-                        <td><span class="badge badge-teal">Oftalmología</span></td>
-                        <td>Mar, Jue, Sáb</td>
-                        <td>08:00 a 12:00 / 14:00 a 18:00</td>
-                        <td>Salta Capital</td>
-                        <td class="acciones">
-                            <a class="btn-link" href="MedicoModificar.aspx">Editar</a>
-                            <a class="btn-link peligro" href="Medicos.aspx?baja=1">Eliminar</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <asp:GridView ID="gvMedicos" runat="server"
+                AutoGenerateColumns="false"
+                CssClass="grid"
+                GridLines="None"
+                UseAccessibleHeader="true"
+                ShowHeaderWhenEmpty="true"
+                EmptyDataText="No se encontraron registros."
+                DataKeyNames="Legajo"
+                AllowPaging="true"
+                OnPageIndexChanging="gvMedicos_PageIndexChanging"
+                PageSize="8"
+                OnRowCommand="gvMedicos_RowCommand">
+                <Columns>
+                    <asp:BoundField DataField="Legajo" HeaderText="Legajo" ItemStyle-CssClass="principal" />
+                    <asp:BoundField DataField="Medico" HeaderText="Médico" />
+                    <asp:BoundField DataField="Especialidad" HeaderText="Especialidad" />
+                    <asp:BoundField DataField="DiasAtencion" HeaderText="Días de atención" />
+                    <asp:BoundField DataField="Horario" HeaderText="Horario" />
+                    <asp:BoundField DataField="Localidad" HeaderText="Localidad" />
+                    <asp:TemplateField HeaderText="Acciones" HeaderStyle-CssClass="acciones" ItemStyle-CssClass="acciones">
+                        <ItemTemplate>
+                            <asp:HyperLink ID="lnkEditar" runat="server" CssClass="btn-link" Text="Editar"
+                                NavigateUrl='<%# "MedicoModificar.aspx?legajo=" + Eval("Legajo") %>' />
+                            <asp:LinkButton ID="lnkEliminar" runat="server" CssClass="btn-link peligro" Text="Eliminar"
+                                CommandName="Eliminar" CommandArgument='<%# Eval("Legajo") %>' CausesValidation="false" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
         </div>
 
         <div class="paginador">
-            <span class="info">Mostrando 1 a 8 de 15 registros</span>
-            <div class="paginas">
-                <a href="Medicos.aspx" aria-label="Anterior">&laquo;</a>
-                <span class="actual">1</span>
-                <a href="Medicos.aspx">2</a>
-                <a href="Medicos.aspx" aria-label="Siguiente">&raquo;</a>
-            </div>
+            <asp:Label ID="lblResumen" runat="server" CssClass="info" />
         </div>
     </div>
 
-    <% if (Request.QueryString["baja"] == "1") { %>
-        <div class="velo">
-            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloBajaMedico">
-                <div class="modal-cab">
-                    <div class="icono" aria-hidden="true">!</div>
-                    <h3 id="tituloBajaMedico">Confirmar baja de médico</h3>
-                </div>
-                <div class="modal-cuerpo">
-                    <p>¿Está seguro que desea eliminar al profesional <b>Dr. Martin Gomez</b> (Legajo MP-001)?</p>
-                    <p>El registro no se borra físicamente: se marca como <b>inactivo</b> (baja lógica) y no podrá recibir nuevos turnos. Los turnos asignados se conservan.</p>
-                </div>
-                <div class="modal-pie">
-                    <a class="btn btn-secundario" href="Medicos.aspx">Cancelar</a>
-                    <a class="btn btn-peligro" href="Medicos.aspx?baja=ok">Sí, eliminar</a>
-                </div>
+    <asp:Panel ID="pnlConfirmarBaja" runat="server" CssClass="velo" Visible="false">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloBajaMedico">
+            <div class="modal-cab">
+                <div class="icono" aria-hidden="true">!</div>
+                <h3 id="tituloBajaMedico">Confirmar baja de médico</h3>
+            </div>
+            <div class="modal-cuerpo">
+                <p>
+                    ¿Está seguro que desea eliminar al profesional
+                    <b><asp:Label ID="lblNombreBaja" runat="server" /></b>
+                    (Legajo <asp:Label ID="lblLegajoBaja" runat="server" />)?
+                </p>
+                <p>El registro no se borra físicamente: se marca como <b>inactivo</b> (baja lógica) y no podrá recibir nuevos turnos. Los turnos asignados se conservan.</p>
+                <asp:HiddenField ID="hfLegajoBaja" runat="server" />
+            </div>
+            <div class="modal-pie">
+                <asp:Button ID="btnCancelarBaja" runat="server" Text="Cancelar" CssClass="btn btn-secundario" CausesValidation="false" OnClick="btnCancelarBaja_Click" />
+                <asp:Button ID="btnConfirmarBaja" runat="server" Text="Sí, eliminar" CssClass="btn btn-peligro" OnClick="btnConfirmarBaja_Click" />
             </div>
         </div>
-    <% } %>
+    </asp:Panel>
 
 </asp:Content>

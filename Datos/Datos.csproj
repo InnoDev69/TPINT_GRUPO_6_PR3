@@ -42,10 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos.cs" />
-    <Compile Include="DaoMedico.cs" />
+    <Compile Include="MedicoDatos.cs" />
     <Compile Include="DaoPaciente.cs" />
     <Compile Include="DaoTurno.cs" />
     <Compile Include="DatosUsuario.cs" />
+    <Compile Include="DiaAtencionDatos.cs" />
     <Compile Include="EspecialidadDatos.cs" />
     <Compile Include="LocalidadDatos.cs" />
     <Compile Include="ProvinciaDatos.cs" />
