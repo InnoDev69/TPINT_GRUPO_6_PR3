@@ -87,5 +87,66 @@ namespace Vistas
 
             lblResumen.Text = "Mostrando " + lista.Count + " de " + lista.Count + " registros";
         }
+
+        protected void gvPacientes_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Eliminar")
+            {
+                string dni = e.CommandArgument.ToString();
+
+                if (string.IsNullOrWhiteSpace(dni))
+                {
+                    return;
+                }
+
+                GridViewRow fila = (GridViewRow)((LinkButton)e.CommandSource).NamingContainer;
+
+                hfDniBaja.Value = dni;
+                lblDniBaja.Text = dni;
+                lblNombreBaja.Text = fila.Cells[1].Text;
+                pnlConfirmarBaja.Visible = true;
+            }
+        }
+
+        protected void btnCancelarBaja_Click(object sender, EventArgs e)
+        {
+            hfDniBaja.Value = string.Empty;
+            lblDniBaja.Text = string.Empty;
+            lblNombreBaja.Text = string.Empty;
+            pnlConfirmarBaja.Visible = false;
+        }
+
+        protected void btnConfirmarBaja_Click(object sender, EventArgs e)
+        {
+            string dni = hfDniBaja.Value;
+
+            if (string.IsNullOrWhiteSpace(dni))
+            {
+                pnlConfirmarBaja.Visible = false;
+                return;
+            }
+
+            try
+            {
+                PacienteNegocio negocio = new PacienteNegocio();
+                negocio.DarDeBaja(dni);
+
+                pnlConfirmarBaja.Visible = false;
+                pnlAvisoOk.CssClass = "aviso aviso-ok";
+                lblAviso.Text = "El paciente se dio de baja correctamente y ya no aparece en el listado.";
+                pnlAvisoOk.Visible = true;
+
+                MostrarCantRegistros();
+                gvPacientes.PageIndex = 0;
+                CargarGrilla();
+            }
+            catch (Exception)
+            {
+                pnlConfirmarBaja.Visible = false;
+                pnlAvisoOk.CssClass = "aviso aviso-error";
+                lblAviso.Text = "No se pudo dar de baja el paciente.";
+                pnlAvisoOk.Visible = true;
+            }
+        }
     }
 }

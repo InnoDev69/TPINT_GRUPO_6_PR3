@@ -80,5 +80,20 @@ namespace Datos
                 Correo = dr["Correo"].ToString()
             }, parametros.ToArray());
         }
+        public int DarDeBaja(string dni)
+        {
+            const string query = @"
+            UPDATE pac
+            SET pac.EstadoRegistro = 0
+            FROM Pacientes pac
+            INNER JOIN Personas per ON per.IdPersona = pac.IdPersona
+            WHERE per.DNI = @dni
+              AND pac.EstadoRegistro = 1;";
+
+            return AccesoDatos.Ejecutar(
+                query,
+                new SqlParameter("@dni", dni.Trim())
+            );
+        }
     }
 }

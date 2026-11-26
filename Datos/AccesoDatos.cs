@@ -43,5 +43,19 @@ namespace Datos
                 return cmd.ExecuteScalar();
             }
         }
+        public static int Ejecutar(string sql, params SqlParameter[] parametros)
+        {
+            using (SqlConnection conexion = new ConexionBD().ObtenerConexion())
+            using (SqlCommand cmd = new SqlCommand(sql, conexion))
+            {
+                if (parametros != null && parametros.Length > 0)
+                {
+                    cmd.Parameters.AddRange(parametros);
+                }
+
+                conexion.Open();
+                return cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

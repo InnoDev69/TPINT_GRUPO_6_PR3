@@ -73,7 +73,8 @@
                 DataKeyNames="DNI"
                 AllowPaging="true"
                 OnPageIndexChanging="gvPacientes_PageIndexChanging"
-                PageSize="8">
+                PageSize="8"
+                 OnRowCommand="gvPacientes_RowCommand">
                 <Columns>
                     <asp:BoundField DataField="DNI" HeaderText="DNI" ItemStyle-CssClass="principal" />
                     <asp:BoundField DataField="Paciente" HeaderText="Paciente" />
@@ -116,8 +117,8 @@
                 <asp:HiddenField ID="hfDniBaja" runat="server" />
             </div>
             <div class="modal-pie">
-                <asp:Button ID="btnCancelarBaja" runat="server" Text="Cancelar" CssClass="btn btn-secundario" CausesValidation="false" />
-                <asp:Button ID="btnConfirmarBaja" runat="server" Text="Sí, eliminar" CssClass="btn btn-peligro" />
+                <asp:Button ID="btnCancelarBaja" runat="server" Text="Cancelar" CssClass="btn btn-secundario" CausesValidation="false" OnClick="btnCancelarBaja_Click" />
+                <asp:Button ID="btnConfirmarBaja" runat="server" Text="Sí, eliminar" CssClass="btn btn-peligro" OnClick="btnConfirmarBaja_Click" />
             </div>
         </div>
     </asp:Panel>

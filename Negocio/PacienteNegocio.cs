@@ -1,4 +1,4 @@
-﻿// Negocio/PacienteNegocio.cs
+﻿using System;
 using Datos;
 using System.Collections.Generic;
 using Entidades;
@@ -37,6 +37,29 @@ namespace Negocio
                 case "Otro": return "O";
                 default: return null;
             }
+        }
+
+        public void DarDeBaja(string dni)
+        {
+            if (string.IsNullOrWhiteSpace(dni))
+            {
+                throw new System.ArgumentException(
+                    "El DNI no puede estar vacío.",
+                    nameof(dni));
+            }
+            if (!long.TryParse(dni, out long dniNum) || dniNum <= 0)
+            {
+                throw new System.ArgumentException(
+                    "El DNI debe ser un número positivo.",
+                    nameof(dni));
+            }
+            if (dni.Length < 7 || dni.Length > 8)
+            {
+                throw new System.ArgumentException(
+                    "El DNI debe tener entre 7 y 8 dígitos.",
+                    nameof(dni));
+            }
+            dao.DarDeBaja(dni);
         }
     }
 }
