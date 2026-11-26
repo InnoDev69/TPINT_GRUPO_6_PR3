@@ -78,15 +78,13 @@
 
             <div class="fila">
                 <div class="campo">
-                    <label for="provincia">Provincia <span class="req">*</span></label>
-                    <select id="provincia">
-                        <option>Buenos Aires</option>
-                        <option>Ciudad Autónoma de Buenos Aires</option>
-                        <option>Córdoba</option>
-                        <option>Mendoza</option>
-                        <option>Santa Fe</option>
-                        <option>Salta</option>
-                    </select>
+                <label for="ddlProvincia">Provincia <span class="req">*</span></label>
+                <asp:DropDownList
+                 ID="ddlProvincia"
+                 runat="server"
+                 AppendDataBoundItems="true">
+                <asp:ListItem Text="Seleccione..." Value="0" />
+                </asp:DropDownList>
                 </div>
                 <div class="campo">
                     <label for="localidad">Localidad <span class="req">*</span></label>

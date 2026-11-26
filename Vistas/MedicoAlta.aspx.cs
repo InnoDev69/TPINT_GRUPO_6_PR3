@@ -9,6 +9,7 @@ namespace Vistas
             if (!IsPostBack)
             {
                 CargarEspecialidades();
+                CargarProvincias();
             }
         }
         private void CargarEspecialidades()
@@ -19,6 +20,15 @@ namespace Vistas
             ddlEspecialidad.DataTextField = "Descripcion";
             ddlEspecialidad.DataValueField = "IdEspecialidad";
             ddlEspecialidad.DataBind();
+            ddlEspecialidad.Enabled = ddlEspecialidad.Items.Count > 1;
+        }
+        private void CargarProvincias()
+        {
+            ProvinciaNegocio negocio = new ProvinciaNegocio();
+            ddlProvincia.DataSource = negocio.Listar();
+            ddlProvincia.DataTextField = "NombreProvincia";
+            ddlProvincia.DataValueField = "IdProvincia";
+            ddlProvincia.DataBind();
         }
     }
 }
