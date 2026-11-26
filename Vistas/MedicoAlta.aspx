@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Alta de médico - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" %>
+﻿<%@ Page Title="Alta de médico - Clínica San Rafael" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MedicoAlta.aspx.cs" Inherits="Vistas.MedicoAlta" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Contenido" runat="server">
 
@@ -65,22 +65,14 @@
                     <input type="date" id="fechaNacimiento" />
                 </div>
                 <div class="campo">
-                    <label for="especialidad">Especialidad <span class="req">*</span></label>
-                    <select id="especialidad">
-                        <option value="">Seleccione...</option>
-                        <option>Clínica Médica</option>
-                        <option>Cardiología</option>
-                        <option>Dermatología</option>
-                        <option>Pediatría</option>
-                        <option>Ginecología</option>
-                        <option>Traumatología</option>
-                        <option>Neurología</option>
-                        <option>Oftalmología</option>
-                        <option>Otorrinolaringología</option>
-                        <option>Psiquiatría</option>
-                        <option>Endocrinología</option>
-                        <option>Nutrición</option>
-                    </select>
+                 <label for="ddlEspecialidad">Especialidad <span class="req">*</span></label>
+                 <asp:DropDownList
+                  ID="ddlEspecialidad"
+                  runat="server"
+                  CssClass=""
+                  AppendDataBoundItems="true">
+                  <asp:ListItem Text="Seleccione..." Value="0" />
+                 </asp:DropDownList>
                 </div>
             </div>
 

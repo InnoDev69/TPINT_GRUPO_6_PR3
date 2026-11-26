@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data.SqlClient;
 using System.Text;
-using System.Threading.Tasks;
+using Entidades;
 
 namespace Datos
 {
@@ -14,6 +14,71 @@ namespace Datos
             return Convert.ToInt32(AccesoDatos.Escalar(sql));
         }
 
+        // texto: busca por DNI, nombre, apellido o correo.
+        // idProvincia / idLocalidad 0 significa "sin filtro".
+        // sexo: 'M', 'F', 'O' o null/"" para "Todos".
+        public List<PacienteListado> Listar(string texto, int idProvincia, int idLocalidad, string sexo)
+        {
+            var sql = new StringBuilder(@"
+                SELECT  pac.IdPaciente,
+                        per.DNI,
+                        per.Apellido + ', ' + per.Nombre AS Paciente,
+                        CASE per.Sexo
+                            WHEN 'F' THEN 'Femenino'
+                            WHEN 'M' THEN 'Masculino'
+                            ELSE 'Otro'
+                        END AS Sexo,
+                        loc.NombreLocalidad AS Localidad,
+                        prov.NombreProvincia AS Provincia,
+                        per.Telefono,
+                        per.Email AS Correo
+                FROM    Pacientes pac
+                        INNER JOIN Personas per    ON per.IdPersona = pac.IdPersona
+                        INNER JOIN Localidades loc ON loc.IdLocalidad = per.IdLocalidad
+                        INNER JOIN Provincias prov ON prov.IdProvincia = loc.IdProvincia
+                WHERE   pac.EstadoRegistro = 1
+                        AND per.EstadoRegistro = 1
+            ");
 
+            var parametros = new List<SqlParameter>();
+
+            if (!string.IsNullOrWhiteSpace(texto))
+            {
+                sql.Append(" AND (per.DNI LIKE @texto OR per.Nombre LIKE @texto OR per.Apellido LIKE @texto OR per.Email LIKE @texto)");
+                parametros.Add(new SqlParameter("@texto", "%" + texto.Trim() + "%"));
+            }
+
+            if (idProvincia > 0)
+            {
+                sql.Append(" AND prov.IdProvincia = @idProvincia");
+                parametros.Add(new SqlParameter("@idProvincia", idProvincia));
+            }
+
+            if (idLocalidad > 0)
+            {
+                sql.Append(" AND loc.IdLocalidad = @idLocalidad");
+                parametros.Add(new SqlParameter("@idLocalidad", idLocalidad));
+            }
+
+            if (!string.IsNullOrWhiteSpace(sexo))
+            {
+                sql.Append(" AND per.Sexo = @sexo");
+                parametros.Add(new SqlParameter("@sexo", sexo));
+            }
+
+            sql.Append(" ORDER BY per.Apellido, per.Nombre;");
+
+            return AccesoDatos.Listar(sql.ToString(), dr => new PacienteListado
+            {
+                IdPaciente = Convert.ToInt32(dr["IdPaciente"]),
+                DNI = dr["DNI"].ToString(),
+                Paciente = dr["Paciente"].ToString(),
+                Sexo = dr["Sexo"].ToString(),
+                Localidad = dr["Localidad"].ToString(),
+                Provincia = dr["Provincia"].ToString(),
+                Telefono = dr["Telefono"].ToString(),
+                Correo = dr["Correo"].ToString()
+            }, parametros.ToArray());
+        }
     }
 }
