@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
-using Entidades;
 
 namespace Datos
 {
@@ -94,6 +95,42 @@ namespace Datos
                 query,
                 new SqlParameter("@dni", dni.Trim())
             );
+        }
+
+        public Persona ObtenerPorDni(string dni)
+        {
+            const string sql = @"SELECT per.IdPersona,
+                                        per.DNI,
+                                        per.Nombre,
+                                        per.Apellido,
+                                        per.Sexo,
+                                        per.Nacionalidad,
+                                        per.FechaNacimiento,
+                                        per.Direccion,
+                                        per.IdLocalidad,
+                                        per.Email,
+                                        per.Telefono
+                                FROM    Pacientes pac INNER JOIN Personas per ON per.IdPersona = pac.IdPersona
+                                WHERE   per.DNI = @dni
+                                        AND pac.EstadoRegistro = 1
+                                        AND per.EstadoRegistro = 1;";
+
+            List<Persona> lista = AccesoDatos.Listar(sql, dr => new Persona
+            {
+                IdPersona = Convert.ToInt32(dr["IdPersona"]),
+                DNI = dr["DNI"].ToString(),
+                Nombre = dr["Nombre"].ToString(),
+                Apellido = dr["Apellido"].ToString(),
+                Sexo = Convert.ToChar(dr["Sexo"]),
+                Nacionalidad = dr["Nacionalidad"].ToString(),
+                FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]),
+                Direccion = dr["Direccion"].ToString(),
+                IdLocalidad = Convert.ToInt32(dr["IdLocalidad"]),
+                Email = dr["Email"].ToString(),
+                Telefono = dr["Telefono"].ToString()
+            }, new SqlParameter("@dni", dni.Trim()));
+
+            return lista.FirstOrDefault();
         }
     }
 }

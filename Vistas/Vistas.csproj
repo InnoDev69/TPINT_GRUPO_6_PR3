@@ -86,11 +86,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MedicoAlta.aspx.cs">
-  	<DependentUpon>MedicoAlta.aspx</DependentUpon>
-  	<SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>MedicoAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MedicoAlta.aspx.designer.cs">
       <DependentUpon>MedicoAlta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PacienteModificar.aspx.cs">
+      <DependentUpon>PacienteModificar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PacienteModificar.aspx.designer.cs">
+      <DependentUpon>PacienteModificar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pacientes.aspx.cs">
       <DependentUpon>Pacientes.aspx</DependentUpon>

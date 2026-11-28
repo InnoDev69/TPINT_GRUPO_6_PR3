@@ -19,9 +19,8 @@ namespace Vistas
         }
 
         protected void ddlProvincia_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int.TryParse(ddlProvincia.SelectedValue, out int idProvincia);
-            CargarLocalidades(idProvincia);
+        {            
+            CargarLocalidades(Convert.ToInt32(ddlProvincia.SelectedValue));
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)

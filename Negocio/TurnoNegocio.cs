@@ -21,5 +21,19 @@ namespace Negocio
         {
             return id > 0;
         }
+
+        public bool EsLegajoValido(string legajo)
+        {
+            return !string.IsNullOrWhiteSpace(legajo) && legajo.Trim().Length >= 10;
+        }
+
+        public bool DarDeBaja(int id)
+        {
+            if(id <= 0)
+            {
+                return false;
+            }
+            return dao.BajaLogica(id) > 0;
+        }
     }
 }

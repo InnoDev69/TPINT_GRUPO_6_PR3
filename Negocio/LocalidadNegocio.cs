@@ -60,6 +60,11 @@ namespace Negocio
 
             return false;
         }
+
+        public Localidad ObtenerPorId(int idLocalidad)
+        {            
+            return datos.ObtenerPorId(idLocalidad);
+        }
     }
 
 }

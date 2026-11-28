@@ -61,5 +61,10 @@ namespace Negocio
             }
             dao.DarDeBaja(dni);
         }
+
+        public Persona ObtenerPorDni(string dni)
+        {
+            return dao.ObtenerPorDni(dni);
+        }
     }
 }

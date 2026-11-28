@@ -65,35 +65,38 @@
                     <input type="date" id="fechaNacimiento" />
                 </div>
                 <div class="campo">
-                 <label for="ddlEspecialidad">Especialidad <span class="req">*</span></label>
-                 <asp:DropDownList
-                  ID="ddlEspecialidad"
-                  runat="server"
-                  CssClass=""
-                  AppendDataBoundItems="true">
-                  <asp:ListItem Text="Seleccione..." Value="0" />
-                 </asp:DropDownList>
+                    <label for="ddlEspecialidad">Especialidad <span class="req">*</span></label>
+                    <asp:DropDownList
+                        ID="ddlEspecialidad"
+                        runat="server"
+                        CssClass=""
+                        AppendDataBoundItems="true">
+                        <asp:ListItem Text="Seleccione..." Value="0" />
+                    </asp:DropDownList>
                 </div>
             </div>
 
             <div class="fila">
                 <div class="campo">
-                <label for="ddlProvincia">Provincia <span class="req">*</span></label>
-                <asp:DropDownList
-                 ID="ddlProvincia"
-                 runat="server"
-                 AppendDataBoundItems="true">
-                <asp:ListItem Text="Seleccione..." Value="0" />
-                </asp:DropDownList>
+                    <label for="ddlProvincia">Provincia <span class="req">*</span></label>
+                    <asp:DropDownList
+                        ID="ddlProvincia"
+                        runat="server"
+                        AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged"
+                        AppendDataBoundItems="true">
+                        <asp:ListItem Text="Seleccione..." Value="0" />
+                    </asp:DropDownList>
                 </div>
                 <div class="campo">
-                    <label for="localidad">Localidad <span class="req">*</span></label>
-                    <select id="localidad">
-                        <option>General Pacheco</option>
-                        <option>San Miguel</option>
-                        <option>Tigre</option>
-                        <option>La Plata</option>
-                    </select>
+                    <label for="ddlLocalidad">Localidad <span class="req">*</span></label>
+                    <asp:DropDownList
+                        ID="ddlLocalidad"
+                        runat="server"
+                        AppendDataBoundItems="true"
+                        Enabled="false">
+                        <asp:ListItem Text="Seleccione..." Value="0" />
+                    </asp:DropDownList>
                 </div>
                 <div class="campo">
                     <label for="direccion">Dirección <span class="req">*</span></label>
@@ -167,7 +170,11 @@
             </div>
 
             <div class="botones">
-                <a class="btn btn-primario" href="MedicoAlta.aspx?ok=1">Guardar médico</a>
+                <asp:LinkButton
+                    ID="btnGuardar"
+                    runat="server"
+                    CssClass="btn btn-primario"
+                    OnClick="btnGuardar_Click">Guardar médico</asp:LinkButton>
                 <a class="btn btn-secundario" href="Medicos.aspx">Cancelar</a>
             </div>
         </div>
