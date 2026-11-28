@@ -132,5 +132,50 @@ namespace Datos
 
             return lista.FirstOrDefault();
         }
+
+        // true si ya existe una Persona (activa o no) con ese DNI. Lo usamos antes del alta
+        // porque la tabla Personas tiene UQ_Personas_DNI: sin este chequeo previo, un DNI
+        // repetido tira una SqlException de constraint en vez de un mensaje claro para el usuario.
+        public bool ExisteDni(string dni)
+        {
+            const string sql = "SELECT COUNT(*) FROM Personas WHERE DNI = @dni;";
+            int cantidad = Convert.ToInt32(AccesoDatos.Escalar(sql, new SqlParameter("@dni", dni.Trim())));
+            return cantidad > 0;
+        }
+
+        // Alta de paciente = alta de Persona + alta de Pacientes (IdPersona), en una sola
+        // transaccion. Devuelve el IdPaciente generado.
+        public int Alta(Persona persona)
+        {
+            const string sqlPersona = @"
+                INSERT INTO Personas (DNI, Nombre, Apellido, Sexo, Nacionalidad, FechaNacimiento, Direccion, IdLocalidad, Email, Telefono)
+                VALUES (@dni, @nombre, @apellido, @sexo, @nacionalidad, @fechaNacimiento, @direccion, @idLocalidad, @email, @telefono);
+                SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+            SqlParameter[] parametrosPersona =
+            {
+                new SqlParameter("@dni", persona.DNI.Trim()),
+                new SqlParameter("@nombre", persona.Nombre.Trim()),
+                new SqlParameter("@apellido", persona.Apellido.Trim()),
+                new SqlParameter("@sexo", persona.Sexo.ToString()),
+                new SqlParameter("@nacionalidad", persona.Nacionalidad.Trim()),
+                new SqlParameter("@fechaNacimiento", persona.FechaNacimiento),
+                new SqlParameter("@direccion", persona.Direccion.Trim()),
+                new SqlParameter("@idLocalidad", persona.IdLocalidad),
+                new SqlParameter("@email", persona.Email.Trim()),
+                new SqlParameter("@telefono", persona.Telefono.Trim())
+            };
+
+            const string sqlPaciente = @"
+                INSERT INTO Pacientes (IdPersona)
+                VALUES (@idPersona);
+                SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+            return AccesoDatos.InsertarConDependencia(
+                sqlPersona,
+                parametrosPersona,
+                sqlPaciente,
+                idPersona => new[] { new SqlParameter("@idPersona", idPersona) });
+        }
     }
 }

@@ -92,6 +92,13 @@
     <Compile Include="MedicoAlta.aspx.designer.cs">
       <DependentUpon>MedicoAlta.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PacienteAlta.aspx.cs">
+      <DependentUpon>PacienteAlta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PacienteAlta.aspx.designer.cs">
+      <DependentUpon>PacienteAlta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PacienteModificar.aspx.cs">
       <DependentUpon>PacienteModificar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
